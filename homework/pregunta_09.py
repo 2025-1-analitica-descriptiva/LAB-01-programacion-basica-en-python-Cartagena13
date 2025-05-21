@@ -6,7 +6,27 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import os
+import csv
+from collections import defaultdict
 def pregunta_09():
+    dicc=defaultdict(int)
+
+    base_dir = os.path.dirname(__file__)
+    ruta_csv = os.path.join(base_dir, "..", "files", "input", "data.csv")
+    with open(ruta_csv) as file:
+        archivo = csv.reader(file, delimiter="\t")
+
+        for line in archivo:
+            col=line[4]
+            pares=col.split(",")
+
+            for i in pares:
+                clave,_=i.split(":")
+                dicc[clave]+=1
+    conteo_dict = dict(sorted(dicc.items()))
+    return conteo_dict
+
     """
     Retorne un diccionario que contenga la cantidad de registros en que
     aparece cada clave de la columna 5.

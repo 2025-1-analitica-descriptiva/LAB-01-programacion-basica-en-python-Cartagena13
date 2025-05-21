@@ -6,7 +6,27 @@ utilizar pandas, numpy o scipy.
 """
 
 
+import os
+import csv
+from collections import defaultdict
+
 def pregunta_08():
+
+    dicc=defaultdict(set)
+
+    base_dir = os.path.dirname(__file__)
+    ruta_csv = os.path.join(base_dir, "..", "files", "input", "data.csv")
+    with open(ruta_csv) as file:
+        archivo = csv.reader(file, delimiter="\t")
+        for line in archivo:
+            letra=line[0]
+            valor=int(line[1])
+            dicc[valor].add(letra)
+    resultado=[]
+    for n in sorted(dicc.keys()):
+        letra_ordenada=sorted(dicc[n])
+        resultado.append((n, letra_ordenada))
+    return(resultado)
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
     contiene  el valor de la segunda columna; la segunda parte de la tupla

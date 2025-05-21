@@ -4,9 +4,24 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
+import os
+import csv
+from collections import defaultdict
 
 def pregunta_07():
+
+    dicc=defaultdict(list)
+
+    base_dir = os.path.dirname(__file__)
+    ruta_csv = os.path.join(base_dir, "..", "files", "input", "data.csv")
+    with open(ruta_csv) as file:
+        archivo = csv.reader(file, delimiter="\t")
+        for line in archivo:
+            letra=line[0]
+            valor=int(line[1])
+            dicc[valor].append(letra)
+    resultado=sorted(dicc.items())
+    return(resultado)
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
     contiene un valor posible de la columna 2 y una lista con todas las letras
